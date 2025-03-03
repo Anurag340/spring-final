@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/dashboard")
 @CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DashboardController {
 
     @Autowired
