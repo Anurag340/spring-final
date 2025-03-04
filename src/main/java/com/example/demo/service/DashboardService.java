@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,5 +95,10 @@ public class DashboardService {
     public List<Team> getTeamByOrgId(int orgid) {
         
         return teamRepository.findByOrgid(orgid);
+    }
+
+    public List<User> registerUsers(List<User> users) {
+        // Implement the logic to register users
+        return userRepository.saveAll(users);
     }
 }

@@ -6,6 +6,7 @@ import com.example.demo.model.UserPersonals;
 import com.example.demo.model.User;
 import com.example.demo.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -96,5 +97,10 @@ public class DashboardController {
             }
         }
         return dashboardService.registerUserPersonals(userPersonal);
+    }
+
+    @PostMapping("/bulk-register")
+    public List<User> bulkRegister(@RequestBody List<User> users) {
+       return dashboardService.registerUsers(users);
     }
 }
