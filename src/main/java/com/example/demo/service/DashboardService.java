@@ -82,4 +82,17 @@ public class DashboardService {
         userRepository.save(user);
     }
 
+    public User findUserByName(String name) {
+        // Implementation of the method
+        Optional<User> userOptional = userRepository.findByName(name);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        return null;
+    }
+
+    public List<Team> getTeamByOrgId(int orgid) {
+        
+        return teamRepository.findByOrgid(orgid);
+    }
 }

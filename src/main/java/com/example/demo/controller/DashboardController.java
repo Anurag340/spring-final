@@ -71,11 +71,29 @@ public class DashboardController {
         userPersonal.setIndvid(indvid);
         String name = userPersonal.getName();
         int orgid = userPersonal.getorgid();
-        User user = dashboardService.findUserByOrgid(orgid);
-        if (user != null) {
+        User user = dashboardService.findUserByName(name);
+        if (name != null && !name.isEmpty()) {
+            if (user != null) {
             user.setindvid(indvid);
             user.setName(name);
             dashboardService.updateUser(user);
+            } else {
+            User newUser = new User();
+            newUser.setorgid(orgid);
+            newUser.setindvid(indvid);
+            newUser.setName(name);
+            List<Team> teams = dashboardService.getTeamByOrgId(orgid);
+            if (teams != null && !teams.isEmpty()) {
+                Team team = teams.get(0); // Assuming you want the first team in the list
+                newUser.setunitno(team.getunitno());
+                newUser.setdepartment(team.getdepartment());
+                Organizations org = dashboardService.findOrganizations(orgid);
+                if (org != null) {
+                    newUser.setorgname(org.getOrgname());
+                }
+            }
+            dashboardService.addUser(newUser);
+            }
         }
         return dashboardService.registerUserPersonals(userPersonal);
     }

@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByIndvid(int indvid);
     Optional<User> findByOrgid(int orgid);
+    Optional<User> findByName(String name);
 }
