@@ -30,7 +30,7 @@ public class DashboardController {
 
     // Check if the organization exists in the organizations table
     @PostMapping("/org-login")
-    public Organizations findOrganization(@RequestParam int orgid) {
+    public Organizations findOrganization(@RequestBody int orgid) {
         return dashboardService.findOrganizations(orgid);
     }
 
