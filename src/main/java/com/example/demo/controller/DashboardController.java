@@ -4,12 +4,15 @@ import com.example.demo.model.Team;
 import com.example.demo.model.Organizations;
 import com.example.demo.model.UserPersonals;
 import com.example.demo.model.User;
+import com.example.demo.model.useruploads;
 import com.example.demo.service.DashboardService;
+import com.example.demo.service.DashboardService.UserWithPdf;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/dashboard")
@@ -45,12 +48,6 @@ public class DashboardController {
     public Organizations registerOrganization(@RequestBody Organizations org) {
         int orgid = (int)(Math.random() * 9000) + 1000;
         org.setOrgid(orgid);
-
-        String orgname = org.getOrgname();
-        User user = new User();
-        user.setorgid(orgid);
-        user.setorgname(orgname);
-        dashboardService.addUser(user);
 
         return dashboardService.registerOrganizations(org);
     }
@@ -99,8 +96,22 @@ public class DashboardController {
         return dashboardService.registerUserPersonals(userPersonal);
     }
 
-    @PostMapping("/bulk-register")
-    public List<User> bulkRegister(@RequestBody List<User> users) {
-       return dashboardService.registerUsers(users);
+    @PostMapping("/update-img")
+    public useruploads updateImg(@RequestBody useruploads userupload) {
+        int indvid = userupload.getindvid();
+        String imgname = userupload.getImgname();
+        return dashboardService.updateImg(indvid, imgname);
+    }
+
+    @PostMapping("/update-pdf")
+    public useruploads updatePdf(@RequestBody useruploads userupload) {
+        int indvid = userupload.getindvid();
+        String pdfname = userupload.getPdfname();
+        return dashboardService.updatePdf(indvid, pdfname);
+    }
+
+    @GetMapping("/get-records")
+    public List<UserWithPdf> getRecords(@RequestParam int orgid) {
+        return dashboardService.getRecords(orgid);
     }
 }

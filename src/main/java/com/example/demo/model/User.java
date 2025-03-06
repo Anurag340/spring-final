@@ -45,6 +45,4 @@ public class User {
     public Integer getindvid(){return indvid;}
     public void setorgid(Integer orgid){this.orgid=orgid;}
     public Integer getorgid(){return orgid;}
-
-
 }

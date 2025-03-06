@@ -3,11 +3,11 @@ package com.example.demo.service;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Service
 public class DashboardService {
@@ -23,6 +23,9 @@ public class DashboardService {
 
     @Autowired
     private UserPersonalRepository userPersonalRepository;
+
+    @Autowired
+    private UserUploadRepository userUploadRepository;
 
     public User getIndividualDetails(int indvid) {
         Optional<User> user = userRepository.findByIndvid(indvid);
@@ -100,5 +103,62 @@ public class DashboardService {
     public List<User> registerUsers(List<User> users) {
         // Implement the logic to register users
         return userRepository.saveAll(users);
+    }
+
+    public useruploads updatePdf(int indvid , String pdfname) {
+        // Implement the logic to update PDF here
+        Optional<useruploads> userUploadOptional = userUploadRepository.findByindvid(indvid);
+        if (userUploadOptional.isPresent()) {
+            useruploads userUpload = userUploadOptional.get();
+            userUpload.setPdfname(pdfname);
+            return userUploadRepository.save(userUpload);
+        }
+        return null;
+        
+    }
+    
+    public useruploads updateImg(int indvid, String imgname) {
+        useruploads newUserUpload = new useruploads();
+        newUserUpload.setindvid(indvid);
+        newUserUpload.setImgname(imgname);
+        newUserUpload.setPdfname(null);
+        return userUploadRepository.save(newUserUpload);
+    }
+
+    public List<UserWithPdf> getRecords(int orgid) {
+        List<User> users = userRepository.findByorgid(orgid);
+        List<UserWithPdf> usersWithPdf = new ArrayList<>();
+        for (User user : users) {
+            Optional<useruploads> userUploadOptional = userUploadRepository.findByindvid(user.getindvid());
+            String pdfname = userUploadOptional.map(useruploads::getPdfname).orElse(null);
+            usersWithPdf.add(new UserWithPdf(user, pdfname));
+        }
+        return usersWithPdf;
+    }
+
+    public static class UserWithPdf {
+        private User user;
+        private String pdfname;
+
+        public UserWithPdf(User user, String pdfname) {
+            this.user = user;
+            this.pdfname = pdfname;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public String getPdfname() {
+            return pdfname;
+        }
+
+        public void setPdfname(String pdfname) {
+            this.pdfname = pdfname;
+        }
     }
 }

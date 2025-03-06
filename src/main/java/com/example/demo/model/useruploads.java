@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "useruploads")
+@Table(name = "usersuploads")
 public class useruploads {
 
     @Id
@@ -10,24 +10,22 @@ public class useruploads {
     private Long id;
 
     @Column(name = "indvid", nullable = false, unique = true)
-    private int indvId;
+    private int indvid;
 
-    @Lob
-    @Column(name = "profile_image", columnDefinition = "LONGBLOB")
-    private byte[] profileImage;
+    @Column(name = "imgname", nullable = true)
+    private String imgname;
 
-    @Lob
-    @Column(name = "img_pdf", columnDefinition = "LONGBLOB")
-    private byte[] imgPdf;
+    @Column(name = "pdfname", nullable = true)
+    private String pdfname;
 
     // Constructors
     public useruploads() {
     }
 
-    public useruploads(int indvId, byte[] profileImage, byte[] imgPdf) {
-        this.indvId = indvId;
-        this.profileImage = profileImage;
-        this.imgPdf = imgPdf;
+    public useruploads(int indvid, String imgname, String pdfname) {
+        this.indvid = indvid;
+        this.imgname = imgname;
+        this.pdfname = pdfname;
     }
 
     // Getters and Setters
@@ -39,27 +37,27 @@ public class useruploads {
         this.id = id;
     }
 
-    public int getIndvId() {
-        return indvId;
+    public int getindvid() {
+        return indvid;
     }
 
-    public void setIndvId(int indvId) {
-        this.indvId = indvId;
+    public void setindvid(int indvid) {
+        this.indvid = indvid;
     }
 
-    public byte[] getProfileImage() {
-        return profileImage;
+    public String getImgname() {
+        return imgname;
     }
 
-    public void setProfileImage(byte[] profileImage) {
-        this.profileImage = profileImage;
+    public void setImgname(String imgname) {
+        this.imgname = imgname;
     }
 
-    public byte[] getImgPdf() {
-        return imgPdf;
+    public String getPdfname() {
+        return pdfname;
     }
 
-    public void setImgPdf(byte[] imgPdf) {
-        this.imgPdf = imgPdf;
+    public void setPdfname(String pdfname) {
+        this.pdfname = pdfname;
     }
 }
