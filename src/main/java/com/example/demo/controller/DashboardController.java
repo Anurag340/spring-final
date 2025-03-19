@@ -114,4 +114,28 @@ public class DashboardController {
     public List<UserWithPdf> getRecords(@RequestParam int orgid) {
         return dashboardService.getRecords(orgid);
     }
+
+    @PostMapping("/bulk-register")
+    public List<User> bulkRegister(@RequestBody List<User> users) {
+        for (User user : users) {
+            String unitno = user.getunitno();
+            String department = user.getdepartment();
+            int orgid = user.getorgid();
+
+            // Check if a team with the same unitno and orgid exists
+            List<Team> existingTeams = dashboardService.getTeams(orgid);
+            boolean teamExists = existingTeams.stream()
+                .anyMatch(team -> team.getunitno().equals(unitno) && team.getorgid() == orgid);
+
+            // If no such team exists, save it as a new team record
+            if (!teamExists) {
+                Team newTeam = new Team();
+                newTeam.setorgid(orgid);
+                newTeam.setunitno(unitno);
+                newTeam.setdepartment(department);
+                dashboardService.addTeam(newTeam);
+            }
+        }
+       return dashboardService.registerUsers(users);
+    }
 }
