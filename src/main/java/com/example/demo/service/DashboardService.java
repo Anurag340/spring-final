@@ -167,4 +167,9 @@ public class DashboardService {
         // Example:
         return userUploadRepository.findByindvid(indvid).orElse(null);
     }
+
+    public List<useruploads> getAllImgs(int indvid) {
+        // Replace with actual implementation
+        return userUploadRepository.findAllByIndvid(indvid);
+    }
 }

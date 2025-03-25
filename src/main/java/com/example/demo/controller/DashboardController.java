@@ -139,7 +139,7 @@ public class DashboardController {
     }
 
     @GetMapping("/get-img")
-    public useruploads getImg(@RequestParam int indvid) {
-        return dashboardService.getImg(indvid);
+    public List<useruploads> getImg(@RequestParam int indvid) {
+        return dashboardService.getAllImgs(indvid);
     }
 }
