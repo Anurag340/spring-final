@@ -106,14 +106,12 @@ public class DashboardService {
     }
 
     public useruploads updatePdf(int indvid , String pdfname) {
-        // Implement the logic to update PDF here
-        Optional<useruploads> userUploadOptional = userUploadRepository.findByindvid(indvid);
-        if (userUploadOptional.isPresent()) {
-            useruploads userUpload = userUploadOptional.get();
+        // Update the pdfname for all records with the same indvid
+        List<useruploads> userUploads = userUploadRepository.findAllByIndvid(indvid);
+        for (useruploads userUpload : userUploads) {
             userUpload.setPdfname(pdfname);
-            return userUploadRepository.save(userUpload);
         }
-        return null;
+        return userUploadRepository.saveAll(userUploads).isEmpty() ? null : userUploads.get(0);
         
     }
     
