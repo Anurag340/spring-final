@@ -161,4 +161,10 @@ public class DashboardService {
             this.pdfname = pdfname;
         }
     }
+
+    public useruploads getImg(int indvid) {
+        // Implement the logic to retrieve the image for the given indvid
+        // Example:
+        return userUploadRepository.findByindvid(indvid).orElse(null);
+    }
 }

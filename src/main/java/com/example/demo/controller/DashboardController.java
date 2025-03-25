@@ -137,4 +137,9 @@ public class DashboardController {
         }
        return dashboardService.registerUsers(users);
     }
+
+    @GetMapping("/get-img")
+    public useruploads getImg(@RequestParam int indvid) {
+        return dashboardService.getImg(indvid);
+    }
 }
