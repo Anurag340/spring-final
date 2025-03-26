@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface UserUploadRepository extends JpaRepository<useruploads, Integer> {
     Optional<useruploads> findByindvid(int indvid);
-
+    
     List<useruploads> findAllByIndvid(int indvid);
+    
 }

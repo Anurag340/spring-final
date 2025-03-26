@@ -125,12 +125,14 @@ public class DashboardService {
 
     public List<UserWithPdf> getRecords(int orgid) {
         List<User> users = userRepository.findByorgid(orgid);
+        System.out.println("List of users: " + users);
         List<UserWithPdf> usersWithPdf = new ArrayList<>();
         for (User user : users) {
             Optional<useruploads> userUploadOptional = userUploadRepository.findByindvid(user.getindvid());
             String pdfname = userUploadOptional.map(useruploads::getPdfname).orElse(null);
             usersWithPdf.add(new UserWithPdf(user, pdfname));
         }
+        
         return usersWithPdf;
     }
 
