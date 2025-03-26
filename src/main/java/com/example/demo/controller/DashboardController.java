@@ -10,6 +10,8 @@ import com.example.demo.service.DashboardService.UserWithPdf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -44,11 +46,20 @@ public class DashboardController {
 
     // Register a new organization and populate users table
     @PostMapping("/org-register")
-    public Organizations registerOrganization(@RequestBody Organizations org) {
+    public ResponseEntity<?> registerOrganization(@RequestBody Organizations org) {
+        String orgname = org.getOrgname();
+        String orgloc = org.getOrgloc();
+        Organizations existingOrg = dashboardService.findOrganizationByNameAndLocation(orgname, orgloc);
+
+        if (existingOrg != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Account already exists with the same location");
+        }
+
         int orgid = (int)(Math.random() * 9000) + 1000;
         org.setOrgid(orgid);
 
-        return dashboardService.registerOrganizations(org);
+        Organizations registeredOrg = dashboardService.registerOrganizations(org);
+        return ResponseEntity.ok(registeredOrg);
     }
 
     // Register a team and populate users table

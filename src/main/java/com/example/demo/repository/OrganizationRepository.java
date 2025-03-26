@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface OrganizationRepository extends JpaRepository<Organizations, Long> {
+public interface OrganizationRepository extends JpaRepository<Organizations, Integer> {
     Optional<Organizations> findByOrgid(int orgid);
+    Organizations findByOrgname(String orgname);
+    Organizations findByOrgnameAndOrgloc(String orgname, String orgloc);
 }

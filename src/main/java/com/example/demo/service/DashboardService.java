@@ -170,4 +170,14 @@ public class DashboardService {
         // Replace with actual implementation
         return userUploadRepository.findAllByIndvid(indvid);
     }
+    public Organizations findOrganizationByName(String orgname) {
+        // Implement the logic to find an organization by its name
+        // Example:
+        return organizationRepository.findByOrgname(orgname);
+    }
+    public Organizations findOrganizationByNameAndLocation(String orgname, String orgloc) {
+        // Implement the logic to find the organization by name and location
+        // Example:
+        return organizationRepository.findByOrgnameAndOrgloc(orgname, orgloc);
+    }
 }
