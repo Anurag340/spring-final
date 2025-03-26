@@ -26,20 +26,24 @@ public class UserPersonals {  // Renamed class
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "bld", nullable = false)
-    private String bld;
+    @Column(name = "contactno", nullable = false)
+    private long contactno;
+
+    @Column(name = "email", nullable = false)
+    private String email;
 
     // Constructors
     public UserPersonals() {
     }
 
-    public UserPersonals(int indvid, int orgid , String name, int age, String gender, String bld) {  // Updated indvid type
+    public UserPersonals(int indvid, int orgid, String name, int age, String gender, long contactno, String email) {
         this.indvid = indvid;
-        this.orgid = orgid;  // Updated orgid type
+        this.orgid = orgid;
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.bld = bld;
+        this.contactno = contactno;
+        this.email = email;
     }
 
     // Getters and Setters
@@ -83,12 +87,20 @@ public class UserPersonals {  // Renamed class
         this.gender = gender;
     }
 
-    public String getBld() {  // Fixed method naming
-        return bld;
+    public long getContactno() {
+        return contactno;
     }
 
-    public void setBld(String bld) {  // Fixed method naming
-        this.bld = bld;
+    public void setContactno(long contactno) {
+        this.contactno = contactno;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getorgid() {
